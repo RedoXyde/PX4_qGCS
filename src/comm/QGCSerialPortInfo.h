@@ -37,6 +37,7 @@ public:
         BoardTypeMINDPXFMUV2,
         BoardTypeTAPV1,
         BoardTypeASCV1,
+        BoardTypeSparky2,
         BoardTypeUnknown
     } BoardType_t;
 
@@ -50,12 +51,14 @@ public:
     static const int pixhawkFMUV1ProductId =                16;     ///< Product ID for PX4 FMU V1 board
 
     static const int AeroCoreProductId =                    4097;   ///< Product ID for the AeroCore board
-    
+
     static const int px4FlowProductId =                     21;     ///< Product ID for PX4 Flow board
 
     static const int MindPXFMUV2ProductId =                 48;     ///< Product ID for the MindPX V2 board
     static const int TAPV1ProductId =                       64;     ///< Product ID for the TAP V1 board
     static const int ASCV1ProductId =                       65;     ///< Product ID for the ASC V1 board
+
+    static const int Sparky2ProductId =                     179;    ///< Product ID for the Sparky2 board
 
     static const int threeDRRadioVendorId =                 1027;   ///< Vendor ID for 3DR Radio
     static const int threeDRRadioProductId =                24597;  ///< Product ID for 3DR Radio

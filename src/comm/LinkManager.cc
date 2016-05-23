@@ -553,6 +553,11 @@ void LinkManager::_updateAutoConnectLinks(void)
                         pSerialConfig = new SerialConfiguration(QString("ASC on %1").arg(portInfo.portName().trimmed()));
                         pSerialConfig->setUsbDirect(true);
                     }
+                case QGCSerialPortInfo::BoardTypeSparky2:
+                    if (_autoconnectPixhawk) {
+                        pSerialConfig = new SerialConfiguration(QString("Sparky2 on %1").arg(portInfo.portName().trimmed()));
+                        pSerialConfig->setUsbDirect(true);
+                    }
                     break;
                 case QGCSerialPortInfo::BoardTypePX4Flow:
                     if (_autoconnectPX4Flow) {

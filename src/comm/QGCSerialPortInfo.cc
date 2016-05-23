@@ -27,6 +27,7 @@ static const struct VIDPIDMapInfo_s {
     { QGCSerialPortInfo::px4VendorId,           QGCSerialPortInfo::MindPXFMUV2ProductId,                QGCSerialPortInfo::BoardTypeMINDPXFMUV2,"Found MindPX FMU V2" },
     { QGCSerialPortInfo::px4VendorId,           QGCSerialPortInfo::TAPV1ProductId,                      QGCSerialPortInfo::BoardTypeTAPV1,      "Found TAP V1" },
     { QGCSerialPortInfo::px4VendorId,           QGCSerialPortInfo::ASCV1ProductId,                      QGCSerialPortInfo::BoardTypeASCV1,      "Found ASC V1" },
+    { QGCSerialPortInfo::px4VendorId,           QGCSerialPortInfo::Sparky2ProductId,                    QGCSerialPortInfo::BoardTypeSparky2,    "Found Sparky2" },
     { QGCSerialPortInfo::threeDRRadioVendorId,  QGCSerialPortInfo::threeDRRadioProductId,               QGCSerialPortInfo::BoardTypeSikRadio,   "Found SiK Radio" },
     { QGCSerialPortInfo::siLabsRadioVendorId,   QGCSerialPortInfo::siLabsRadioProductId,                QGCSerialPortInfo::BoardTypeSikRadio,   "Found SiK Radio" },
     { QGCSerialPortInfo::ubloxRTKVendorId,      QGCSerialPortInfo::ubloxRTKProductId,                   QGCSerialPortInfo::BoardTypeRTKGPS,     "Found RTK GPS" },
@@ -89,6 +90,9 @@ QGCSerialPortInfo::BoardType_t QGCSerialPortInfo::boardType(void) const
         } else if (description() == "PX4 ASC v1.x" || description() == "PX4 BL ASC v1.x") {
             qCDebug(QGCSerialPortInfoLog) << "Found ASC V1 (by name matching fallback)";
             boardType = BoardTypeASCV1;
+        } else if (description() == "PX4 Sparky2" || description() == "PX4 BL Sparky2") {
+            qCDebug(QGCSerialPortInfoLog) << "Found Sparky2 (by name matching fallback)";
+            boardType = BoardTypeSparky2;
         } else if (description() == "FT231X USB UART") {
             qCDebug(QGCSerialPortInfoLog) << "Found possible Radio (by name matching fallback)";
             boardType = BoardTypeSikRadio;
@@ -123,7 +127,7 @@ bool QGCSerialPortInfo::boardTypePixhawk(void) const
     return boardType == BoardTypePX4FMUV1 || boardType == BoardTypePX4FMUV2
             || boardType == BoardTypePX4FMUV4 || boardType == BoardTypeAeroCore
             || boardType == BoardTypeMINDPXFMUV2 || boardType == BoardTypeTAPV1
-            || boardType == BoardTypeASCV1;
+            || boardType == BoardTypeASCV1 ||  boardType == BoardTypeSparky2;
 }
 
 bool QGCSerialPortInfo::isBootloader(void) const
