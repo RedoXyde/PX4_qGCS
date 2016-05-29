@@ -146,6 +146,10 @@ void FirmwareUpgradeController::_foundBoard(bool firstAttempt, const QSerialPort
     case QGCSerialPortInfo::BoardTypeASCV1:
         _foundBoardTypeName = "ASC V1";
         _startFlashWhenBootloaderFound = false;
+	break;
+    case QGCSerialPortInfo::BoardTypeSparky2:
+        _foundBoardTypeName = "Sparky2";
+        _startFlashWhenBootloaderFound = false;
         break;
     case QGCSerialPortInfo::BoardTypePX4Flow:
         _foundBoardTypeName = "PX4 Flow";
@@ -363,6 +367,8 @@ void FirmwareUpgradeController::_initFirmwareHash()
         { AutoPilotStackPX4, StableFirmware,    DefaultVehicleFirmware, "http://px4-travis.s3.amazonaws.com/Firmware/stable/asc-v1_default.px4"},
         { AutoPilotStackPX4, BetaFirmware,      DefaultVehicleFirmware, "http://px4-travis.s3.amazonaws.com/Firmware/beta/asc-v1_default.px4"},
         { AutoPilotStackPX4, DeveloperFirmware, DefaultVehicleFirmware, "http://px4-travis.s3.amazonaws.com/Firmware/master/asc-v1_default.px4"},
+    FirmwareToUrlElement_t rgSparky2FirmwareArray[] = {
+        { AutoPilotStackPX4, StableFirmware,    DefaultVehicleFirmware, "dev/sparky2_default.px4"},
     };
     /////////////////////////////// px4flow firmwares ///////////////////////////////////////
     FirmwareToUrlElement_t rgPX4FLowFirmwareArray[] = {
@@ -415,6 +421,11 @@ void FirmwareUpgradeController::_initFirmwareHash()
     for (int i = 0; i < size; i++) {
         const FirmwareToUrlElement_t& element = rgASCV1FirmwareArray[i];
         _rgASCV1Firmware.insert(FirmwareIdentifier(element.stackType, element.firmwareType, element.vehicleType), element.url);
+    
+    size = sizeof(rgSparky2FirmwareArray)/sizeof(rgSparky2FirmwareArray[0]);
+    for (int i = 0; i < size; i++) {
+        const FirmwareToUrlElement_t& element = rgSparky2FirmwareArray[i];
+        _rgSparky2Firmware.insert(FirmwareIdentifier(element.stackType, element.firmwareType, element.vehicleType), element.url);
     }
 
     size = sizeof(rgPX4FLowFirmwareArray)/sizeof(rgPX4FLowFirmwareArray[0]);
@@ -456,6 +467,8 @@ QHash<FirmwareUpgradeController::FirmwareIdentifier, QString>* FirmwareUpgradeCo
         return &_rgTAPV1Firmware;
     case Bootloader::boardIDASCV1:
         return &_rgASCV1Firmware;
+    case Bootloader::boardIDSparky2:
+        return &_rgSparky2Firmware;
     case Bootloader::boardID3DRRadio:
         return &_rg3DRRadioFirmware;
     default:
@@ -488,6 +501,9 @@ QHash<FirmwareUpgradeController::FirmwareIdentifier, QString>* FirmwareUpgradeCo
         break;
     case QGCSerialPortInfo::BoardTypeASCV1:
         boardId = Bootloader::boardIDASCV1;
+	break;
+    case QGCSerialPortInfo::BoardTypeSparky2:
+        boardId = Bootloader::boardIDSparky2;
         break;
     case QGCSerialPortInfo::BoardTypePX4Flow:
         boardId = Bootloader::boardIDPX4Flow;
